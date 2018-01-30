@@ -8,8 +8,6 @@ include('../includes/dbconfig.php');
 
 include('../includes/constants.php');
 
-include("FCKeditor/fckeditor.php");
-
 extract($_REQUEST);
 
 ?>
@@ -24,97 +22,8 @@ extract($_REQUEST);
 
 
 
-<script type="text/javascript">
 
-//var _editor_url  = document.location.href.replace(/examples\/simple_example\.html.*/, '')
 
-// And the language we need to use in the editor.
-
-var _editor_lang = "en";
-
-//var _editor_url  = document.location.href.replace(/xinha\/xinha\*/, '')
-
-var _editor_url = "xinha/";
-
-</script>
-
-<!-- Load up the actual editor core -->
-
-<script type="text/javascript" src="xinha/htmlarea.js"></script>
-
-<script type="text/javascript">
-
-/*var xinha_plugins =
-
-[
-
- 'CharacterMap', 'ContextMenu', 'FullScreen', 'ListType', 'SpellChecker', 'Stylist', 'SuperClean', 'TableOperations', 'ImageManager', 'ExtendedFileManager', 'InsertPicture', 'Linker', 'PasteText', 'InsertSmiley', 'InsertAnchor', 'HorizontalRule', 'GetHtml', 'FullScreen', 'BackgroundImage','InsertWords','ListType'
-
- ];*/
-
- var xinha_plugins =
-
-[
-
- 'CharacterMap', 'ContextMenu', 'FullScreen', 'ListType', 'Stylist', 'SuperClean','TableOperations','ImageManager', 'ExtendedFileManager', 'InsertPicture', 'Linker', 'PasteText',  'InsertAnchor','HtmlEntities','FullPage','ContextMenu'
-
-];
-
-/************************************************************************
-
- * Names of the textareas you will be turning into editors
-
- ************************************************************************/
-
-var xinha_editors =
-
-[
-
-   'cat_desc1'
-
-];
-
-/************************************************************************
-
- * Initialisation function
-
- ************************************************************************/
-
-function xinha_init()
-
-{
-
-  // THIS BIT OF JAVASCRIPT LOADS THE PLUGINS, NO TOUCHING  :)
-
-  //var _editor_url  = document.location.href.replace(/xinha\*/, '');
-
- // alert(_editor_url);
-
-  if(!HTMLArea.loadPlugins(xinha_plugins, xinha_init)) return;
-
-  var xinha_config = new HTMLArea.Config();
-
-    xinha_editors = HTMLArea.makeEditors(xinha_editors, xinha_config, xinha_plugins);
-
-   //xinha_editors.cat_smdesc.config.width = '600px';
-
-  // xinha_editors.cat_smdesc.config.height = '400px';
-
-   xinha_editors.cat_desc.config.width = '500px';
-
-   xinha_editors.cat_desc.config.height = '300px';
-
-   //xinha_editors.cat_smdesc.config.statusBar = false;
-
-   xinha_editors.cat_desc.config.statusBar = false;
-
-   HTMLArea.startEditors(xinha_editors);
-
-}
-
-window.onload = xinha_init;
-
-</script>
 
 <script language="javascript" type="text/javascript" src="includes/scripts.js"></script>
 
@@ -174,143 +83,10 @@ document.formx1.submit();
 
 </script>
 
-<script language="javascript">
 
-//////////////////////// for states/////////////////////
 
-function category1()
 
-{
 
-
-
-document.formx1.subcategory.options.length=1;
-
-cid=document.formx1.category.value;
-
-var a=0;
-
-<?php $selSub = mysqli_query("SELECT * FROM nile_sub_category WHERE status=1" );
-
-						 $num1=mysqli_num_rows($selSub);
-
-							while($data1=mysqli_fetch_array($selSub)) { ?>
-
-							
-
-						
-
-if( cid == '<?php echo $data1[cat_id]?>') {
-
-a++;
-
-document.formx1.subcategory.options.length=document.formx1.subcategory.options.length+1;
-
-document.formx1.subcategory.options[a].text='<?php echo $data1[sub_cat_name]?>';
-
-document.formx1.subcategory.options[a].value='<?php echo $data1[sub_cat_id]?>';
-
-}
-
-<?php } ?>
-
-}
-
-
-
-
-
-
-
-function extrafield(){
-
-
-
-var a=document.formx1.category.value;
-
-
-
-		if(navigator.appName == "Microsoft Internet Explorer"){
-
-			if((a == '<?php echo $degree?>') ||  (a == '<?php echo $degreetest?>'))
-
-				{
-
-				document.getElementById("univer").style.display = "block";
-
-				 document.getElementById("type").style.display = "none";
-
-				} 
-
-			else if((a == '<?php echo $intermediate?>') || ( a == '<?php echo $school?>'))
-
-				{
-
-				document.getElementById("type").style.display = "block";
-
-				document.getElementById("univer").style.display = "none";
-
-				}
-
-			else
-
-			   {
-
-			   document.getElementById("univer").style.display = "none";
-
-			   document.getElementById("type").style.display = "none";
-
-			   }
-
-		}
-
-		else
-
-		{
-
-			if((a == '<?php echo $degree?>') ||  (a == '<?php echo $degreetest?>'))
-
-				{
-
-				document.getElementById("univer").style.display = "table-row";
-
-				 document.getElementById("type").style.display = "none";
-
-				} 
-
-			else if((a == '<?php echo $intermediate?>') || ( a == '<?php echo $school?>'))
-
-				{
-
-				document.getElementById("type").style.display = "table-row";
-
-				document.getElementById("univer").style.display = "none";
-
-				}
-
-			else
-
-			   {
-
-			   document.getElementById("univer").style.display = "none";
-
-			   document.getElementById("type").style.display = "none";
-
-			   }
-
-		
-
-		}
-
-}
-
-
-
-</script>
-
-
-
-<link type="text/css" rel="stylesheet" title="xp-green" href="xinha/skins/xp-green/skin.css">
 
 </head>
 
@@ -492,7 +268,7 @@ extract($_REQUEST);
 
 ///////////////////paging////////////////////
 
-$PageSize = 20;
+$PageSize = 45;
 
 $StartRow = 0;
 
@@ -614,7 +390,7 @@ else{
 
 
 
-<body onLoad="extrafield()">
+<body >
 
 	<TABLE cellSpacing=0 cellPadding=0 width=96% align=center border="0">
 
